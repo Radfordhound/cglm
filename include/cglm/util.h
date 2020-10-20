@@ -35,9 +35,14 @@
 
 #include "common.h"
 
+#if defined(cglm_util_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE
+#endif
+
 #define GLM_MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 #define GLM_MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
+#ifdef CGLM_INLINE
 /*!
  * @brief get sign of 32 bit integer as +1, -1, 0
  *
@@ -339,5 +344,71 @@ glm_swapf(float * __restrict a, float * __restrict b) {
   *a = *b;
   *b = t;
 }
+#else /* standard interface */
+int
+glm_sign(int val);
 
+float
+glm_signf(float val);
+
+float
+glm_rad(float deg);
+
+float
+glm_deg(float rad);
+
+void
+glm_make_rad(float* deg);
+
+void
+glm_make_deg(float* rad);
+
+float
+glm_pow2(float x);
+
+float
+glm_min(float a, float b);
+
+float
+glm_max(float a, float b);
+
+float
+glm_clamp(float val, float minVal, float maxVal);
+
+float
+glm_clamp_zo(float val);
+
+float
+glm_lerp(float from, float to, float t);
+
+float
+glm_lerpc(float from, float to, float t);
+
+float
+glm_step(float edge, float x);
+
+float
+glm_smooth(float t);
+
+float
+glm_smoothstep(float edge0, float edge1, float x);
+
+float
+glm_smoothinterp(float from, float to, float t);
+
+float
+glm_smoothinterpc(float from, float to, float t);
+
+bool
+glm_eq(float a, float b);
+
+float
+glm_percent(float from, float to, float current);
+
+float
+glm_percentc(float from, float to, float current);
+
+void
+glm_swapf(float* __restrict a, float* __restrict b);
+#endif /* C89 interface */
 #endif /* cglm_util_h */

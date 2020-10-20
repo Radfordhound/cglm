@@ -11,7 +11,9 @@
 extern "C" {
 #endif
 
-#include "../cglm.h"
+#ifndef cglm_types_h
+#  include "../cglm.h"
+#endif
 
 /* DEPRECATED! use _copy, _ucopy versions */
 #define glmc_vec_dup(v, dest)          glmc_vec3_copy(v, dest)
@@ -196,17 +198,13 @@ CGLM_EXPORT
 void
 glmc_vec3_lerpc(vec3 from, vec3 to, float t, vec3 dest);
     
-CGLM_INLINE
+CGLM_EXPORT
 void
-glmc_vec3_mix(vec3 from, vec3 to, float t, vec3 dest) {
-  glmc_vec3_lerp(from, to, t, dest);
-}
+glmc_vec3_mix(vec3 from, vec3 to, float t, vec3 dest);
 
-CGLM_INLINE
+CGLM_EXPORT
 void
-glmc_vec3_mixc(vec3 from, vec3 to, float t, vec3 dest) {
-  glmc_vec3_lerpc(from, to, t, dest);
-}
+glmc_vec3_mixc(vec3 from, vec3 to, float t, vec3 dest);
     
 CGLM_EXPORT
 void
@@ -231,6 +229,26 @@ glmc_vec3_smoothinterp(vec3 from, vec3 to, float t, vec3 dest);
 CGLM_EXPORT
 void
 glmc_vec3_smoothinterpc(vec3 from, vec3 to, float t, vec3 dest);
+
+CGLM_EXPORT
+void
+glmc_vec3_swizzle(vec3 v, int mask, vec3 dest);
+
+CGLM_EXPORT
+void
+glmc_cross(vec3 a, vec3 b, vec3 d);
+
+CGLM_EXPORT
+float
+glmc_dot(vec3 a, vec3 b);
+
+CGLM_EXPORT
+void
+glmc_normalize(vec3 v);
+
+CGLM_EXPORT
+void
+glmc_normalize_to(vec3 v, vec3 dest);
 
 /* ext */
 

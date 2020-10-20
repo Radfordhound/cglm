@@ -5,11 +5,13 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_color_c
+#include "../include/cglm/color.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/color.h"
 
 CGLM_EXPORT
 float
 glmc_luminance(vec3 rgb) {
-  glm_luminance(rgb);
+  return glm_luminance(rgb);
 }

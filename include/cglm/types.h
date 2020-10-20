@@ -8,6 +8,56 @@
 #ifndef cglm_types_h
 #define cglm_types_h
 
+#if (defined(__cplusplus) && __cplusplus >= 201103L) ||\
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) ||\
+    (defined(_MSC_VER) && _MSC_VER >= 1600)
+
+/* C++11+/C99+/Visual Studio 2010+ */
+#  include <stdint.h>
+
+#elif defined(_MSC_VER)
+
+/* pre-2010 MSVC */
+typedef __int8 int8_t;
+typedef __int8 int_least8_t;
+typedef unsigned __int8 uint8_t;
+typedef unsigned __int8 uint_least8_t;
+typedef __int16 int16_t;
+typedef __int16 int_least16_t;
+typedef unsigned __int16 uint16_t;
+typedef unsigned __int16 uint_least16_t;
+typedef __int32 int32_t;
+typedef __int32 int_least32_t;
+typedef unsigned __int32 uint32_t;
+typedef unsigned __int32 uint_least32_t;
+typedef __int64 int64_t;
+typedef __int64 int_least64_t;
+typedef unsigned __int64 uint64_t;
+typedef unsigned __int64 uint_least64_t;
+
+#else
+
+/* TODO: C89 stdint.h */
+
+#endif
+
+#ifndef __cplusplus
+#  if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) ||\
+    (defined(_MSC_VER) && _MSC_VER >= 1800 && !defined(__STDC__))
+
+/* C99+/Visual Studio 2013+ */
+#    include <stdbool.h>
+
+#  else
+
+/* pre-C99 */
+typedef unsigned char bool;
+#  define true 1
+#  define false 0
+
+#  endif
+#endif /* __cplusplus */
+
 #if defined(_MSC_VER)
 /* do not use alignment for older visual studio versions */
 #  if _MSC_VER < 1913 /*  Visual Studio 2017 version 15.6  */

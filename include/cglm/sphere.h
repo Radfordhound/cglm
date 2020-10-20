@@ -11,6 +11,10 @@
 #include "common.h"
 #include "mat4.h"
 
+#if defined(cglm_sphere_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE
+#endif
+
 /*
   Sphere Representation in cglm: [center.x, center.y, center.z, radii]
 
@@ -18,6 +22,7 @@
   any function
  */
 
+#ifdef CGLM_INLINE
 /*!
  * @brief helper for getting sphere radius
  *
@@ -95,5 +100,12 @@ glm_sphere_point(vec4 s, vec3 point) {
   rr = s[3] * s[3];
   return glm_vec3_distance2(point, s) <= rr;
 }
-
+#else /* standard interface */
+#  include "call/sphere.h"
+#  define glm_sphere_radii      glmc_sphere_radii
+#  define glm_sphere_transform  glmc_sphere_transform
+#  define glm_sphere_merge      glmc_sphere_merge
+#  define glm_sphere_sphere     glmc_sphere_sphere
+#  define glm_sphere_point      glmc_sphere_point
+#endif /* C89 interface */
 #endif /* cglm_sphere_h */

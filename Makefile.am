@@ -158,7 +158,10 @@ libcglm_la_SOURCES=\
     src/bezier.c \
     src/ray.c \
     src/affine2d.c \
-    src/color.c
+    src/color.c \
+    src/simd/arm.c \
+    src/simd/x86.c \
+    src/util.c
 
 test_tests_SOURCES=\
     test/runner.c \

@@ -38,6 +38,10 @@
 #include "common.h"
 #include "vec3.h"
 
+#if defined(cglm_mat3_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
 #ifdef CGLM_SSE_FP
 #  include "simd/sse2/mat3.h"
 #endif
@@ -54,9 +58,7 @@
 #define GLM_MAT3_IDENTITY ((mat3)GLM_MAT3_IDENTITY_INIT)
 #define GLM_MAT3_ZERO     ((mat3)GLM_MAT3_ZERO_INIT)
 
-/* DEPRECATED! use _copy, _ucopy versions */
-#define glm_mat3_dup(mat, dest) glm_mat3_copy(mat, dest)
-
+#ifdef CGLM_INLINE
 /*!
  * @brief copy all members of [mat] to [dest]
  *
@@ -420,5 +422,27 @@ glm_mat3_rmc(vec3 r, mat3 m, vec3 c) {
   glm_mat3_mulv(m, c, tmp);
   return glm_vec3_dot(r, tmp);
 }
+#else /* standard interface */
+#  include "call/mat3.h"
+#  define glm_mat3_copy            glmc_mat3_copy
+#  define glm_mat3_identity        glmc_mat3_identity
+#  define glm_mat3_identity_array  glmc_mat3_identity_array
+#  define glm_mat3_zero            glmc_mat3_zero
+#  define glm_mat3_mul             glmc_mat3_mul
+#  define glm_mat3_transpose_to    glmc_mat3_transpose_to
+#  define glm_mat3_transpose       glmc_mat3_transpose
+#  define glm_mat3_mulv            glmc_mat3_mulv
+#  define glm_mat3_trace           glmc_mat3_trace
+#  define glm_mat3_quat            glmc_mat3_quat
+#  define glm_mat3_scale           glmc_mat3_scale
+#  define glm_mat3_det             glmc_mat3_det
+#  define glm_mat3_inv             glmc_mat3_inv
+#  define glm_mat3_swap_col        glmc_mat3_swap_col
+#  define glm_mat3_swap_row        glmc_mat3_swap_row
+#  define glm_mat3_rmc             glmc_mat3_rmc
+#endif /* C89 interface */
+
+/* DEPRECATED! use _copy, _ucopy versions */
+#define glm_mat3_dup(mat, dest) glm_mat3_copy(mat, dest)
 
 #endif /* cglm_mat3_h */

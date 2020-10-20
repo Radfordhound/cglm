@@ -7,19 +7,24 @@
 
 #ifndef cglm_simd_arm_h
 #define cglm_simd_arm_h
-#include "intrin.h"
+#include "../common.h"
 #ifdef CGLM_SIMD_ARM
+
+#if defined(cglm_arm_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE
+#endif
 
 #define glmm_load(p)      vld1q_f32(p)
 #define glmm_store(p, a)  vst1q_f32(p, a)
 
-static inline
+#ifdef CGLM_INLINE
+CGLM_INLINE
 float32x4_t
 glmm_abs(float32x4_t v) {
   return vabsq_f32(v);
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_hadd(float32x4_t v) {
 #if defined(__aarch64__)
@@ -31,7 +36,7 @@ glmm_hadd(float32x4_t v) {
 #endif
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_hmin(float32x4_t v) {
   float32x2_t t;
@@ -40,7 +45,7 @@ glmm_hmin(float32x4_t v) {
   return vget_lane_f32(t, 0);
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_hmax(float32x4_t v) {
   float32x2_t t;
@@ -49,35 +54,62 @@ glmm_hmax(float32x4_t v) {
   return vget_lane_f32(t, 0);
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_dot(float32x4_t a, float32x4_t b) {
   return glmm_hadd(vmulq_f32(a, b));
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_norm(float32x4_t a) {
   return sqrtf(glmm_dot(a, a));
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_norm2(float32x4_t a) {
   return glmm_dot(a, a);
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_norm_one(float32x4_t a) {
   return glmm_hadd(glmm_abs(a));
 }
 
-static inline
+CGLM_INLINE
 float
 glmm_norm_inf(float32x4_t a) {
   return glmm_hmax(glmm_abs(a));
 }
+#else /* standard interface */
+float32x4_t
+glmm_abs(float32x4_t v);
 
+float
+glmm_hadd(float32x4_t v);
+
+float
+glmm_hmin(float32x4_t v);
+
+float
+glmm_hmax(float32x4_t v);
+
+float
+glmm_dot(float32x4_t a, float32x4_t b);
+
+float
+glmm_norm(float32x4_t a);
+
+float
+glmm_norm2(float32x4_t a);
+
+float
+glmm_norm_one(float32x4_t a);
+
+float
+glmm_norm_inf(float32x4_t a);
+#endif /* C89 interface */
 #endif
 #endif /* cglm_simd_arm_h */

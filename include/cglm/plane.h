@@ -9,7 +9,12 @@
 #define cglm_plane_h
 
 #include "common.h"
+#include "vec3.h"
 #include "vec4.h"
+
+#if defined(cglm_plane_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 /*
  Plane equation:  Ax + By + Cz + D = 0;
@@ -22,6 +27,7 @@
    CGLM_INLINE void  glm_plane_normalize(vec4 plane);
  */
 
+#ifdef CGLM_INLINE
 /*!
  * @brief normalizes a plane
  *
@@ -39,5 +45,8 @@ glm_plane_normalize(vec4 plane) {
   
   glm_vec4_scale(plane, 1.0f / norm, plane);
 }
-
+#else /* standard interface */
+#  include "call/plane.h"
+#  define glm_plane_normalize  glmc_plane_normalize
+#endif /* C89 interface */
 #endif /* cglm_plane_h */

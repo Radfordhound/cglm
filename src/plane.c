@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_plane_c
+#include "../include/cglm/plane.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/plane.h"
 
 CGLM_EXPORT
 void

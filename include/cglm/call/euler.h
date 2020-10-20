@@ -11,7 +11,13 @@
 extern "C" {
 #endif
 
-#include "../cglm.h"
+#ifndef cglm_types_h
+#  include "../cglm.h"
+#endif
+
+CGLM_EXPORT
+glm_euler_seq
+glmc_euler_order(int ord[3]);
 
 CGLM_EXPORT
 void

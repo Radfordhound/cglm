@@ -13,6 +13,11 @@
 #include "vec4.h"
 #include "util.h"
 
+#if defined(cglm_box_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief apply transform to Axis-Aligned Bounding Box
  *
@@ -275,5 +280,21 @@ glm_aabb_contains(vec3 box[2], vec3 other[2]) {
       && (box[0][1] <= other[0][1] && box[1][1] >= other[1][1])
       && (box[0][2] <= other[0][2] && box[1][2] >= other[1][2]);
 }
-
+#else /* standard interface */
+#  include "call/box.h"
+#  define glm_aabb_transform   glmc_aabb_transform
+#  define glm_aabb_merge       glmc_aabb_merge
+#  define glm_aabb_crop        glmc_aabb_crop
+#  define glm_aabb_crop_until  glmc_aabb_crop_until
+#  define glm_aabb_frustum     glmc_aabb_frustum
+#  define glm_aabb_invalidate  glmc_aabb_invalidate
+#  define glm_aabb_isvalid     glmc_aabb_isvalid
+#  define glm_aabb_size        glmc_aabb_size
+#  define glm_aabb_radius      glmc_aabb_radius
+#  define glm_aabb_center      glmc_aabb_center
+#  define glm_aabb_aabb        glmc_aabb_aabb
+#  define glm_aabb_sphere      glmc_aabb_sphere
+#  define glm_aabb_point       glmc_aabb_point
+#  define glm_aabb_contains    glmc_aabb_contains
+#endif /* C89 interface */
 #endif /* cglm_box_h */

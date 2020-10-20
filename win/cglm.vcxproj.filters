@@ -101,6 +101,15 @@
     <ClCompile Include="..\src\color.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\simd\arm.c">
+      <Filter>src\simd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\simd\x86.c">
+      <Filter>src\simd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\config.h">

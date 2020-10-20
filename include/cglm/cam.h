@@ -50,7 +50,13 @@
 
 #include "common.h"
 #include "plane.h"
+#include "mat4.h"
 
+#if defined(cglm_vcam_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief set up perspective peprojection matrix
  *
@@ -578,5 +584,31 @@ glm_persp_sizes(mat4 proj, float fovy, vec4 dest) {
   dest[0]  = a * dest[1];
   dest[2]  = a * dest[3];
 }
-
+#else /* standard interface */
+#  include "call/cam.h"
+#  define glm_frustum              glmc_frustum
+#  define glm_ortho                glmc_ortho
+#  define glm_ortho_aabb           glmc_ortho_aabb
+#  define glm_ortho_aabb_p         glmc_ortho_aabb_p
+#  define glm_ortho_aabb_pz        glmc_ortho_aabb_pz
+#  define glm_ortho_default        glmc_ortho_default
+#  define glm_ortho_default_s      glmc_ortho_default_s
+#  define glm_perspective          glmc_perspective
+#  define glm_persp_move_far       glmc_persp_move_far
+#  define glm_perspective_default  glmc_perspective_default
+#  define glm_perspective_resize   glmc_perspective_resize
+#  define glm_lookat               glmc_lookat
+#  define glm_look                 glmc_look
+#  define glm_look_anyup           glmc_look_anyup
+#  define glm_persp_decomp         glmc_persp_decomp
+#  define glm_persp_decompv        glmc_persp_decompv
+#  define glm_persp_decomp_x       glmc_persp_decomp_x
+#  define glm_persp_decomp_y       glmc_persp_decomp_y
+#  define glm_persp_decomp_z       glmc_persp_decomp_z
+#  define glm_persp_decomp_far     glmc_persp_decomp_far
+#  define glm_persp_decomp_near    glmc_persp_decomp_near
+#  define glm_persp_fovy           glmc_persp_fovy
+#  define glm_persp_aspect         glmc_persp_aspect
+#  define glm_persp_sizes          glmc_persp_sizes
+#endif /* C89 interface */
 #endif /* cglm_vcam_h */

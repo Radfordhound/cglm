@@ -12,6 +12,11 @@
 #include "vec4.h"
 #include "mat4.h"
 
+#if defined(cglm_curve_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief helper function to calculate S*M*C multiplication for curves
  *
@@ -36,5 +41,8 @@ glm_smc(float s, mat4 m, vec4 c) {
   glm_vec4_cubic(s, vs);
   return glm_mat4_rmc(vs, m, c);
 }
-
+#else /* standard interface */
+#  include "call/curve.h"
+#  define glm_smc  glmc_smc
+#endif /* C89 interface */
 #endif /* cglm_curve_h */

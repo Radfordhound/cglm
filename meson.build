@@ -48,7 +48,10 @@ cglm_src = files(
     'src/vec2.c',
     'src/vec3.c',
     'src/vec4.c',
-    'src/color.c'
+    'src/color.c',
+    'src/simd/arm.c',
+    'src/simd/x86.c',
+    'src/util.c'
 )
 
 install_subdir('include/cglm', install_dir : get_option('includedir'))

@@ -35,6 +35,11 @@
 
 #include "common.h"
 #include "vec2.h"
+#include "vec4.h"
+
+#if defined(cglm_mat2_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 #ifdef CGLM_SSE_FP
 #  include "simd/sse2/mat2.h"
@@ -47,6 +52,7 @@
 #define GLM_MAT2_IDENTITY ((mat2)GLM_MAT2_IDENTITY_INIT)
 #define GLM_MAT2_ZERO     ((mat2)GLM_MAT2_ZERO_INIT)
 
+#ifdef CGLM_INLINE
 /*!
  * @brief copy all members of [mat] to [dest]
  *
@@ -327,5 +333,22 @@ glm_mat2_rmc(vec2 r, mat2 m, vec2 c) {
   glm_mat2_mulv(m, c, tmp);
   return glm_vec2_dot(r, tmp);
 }
-
+#else /* standard interface */
+#  include "call/mat2.h"
+#  define glm_mat2_copy            glmc_mat2_copy
+#  define glm_mat2_identity        glmc_mat2_identity
+#  define glm_mat2_identity_array  glmc_mat2_identity_array
+#  define glm_mat2_zero            glmc_mat2_zero
+#  define glm_mat2_mul             glmc_mat2_mul
+#  define glm_mat2_transpose_to    glmc_mat2_transpose_to
+#  define glm_mat2_transpose       glmc_mat2_transpose
+#  define glm_mat2_mulv            glmc_mat2_mulv
+#  define glm_mat2_trace           glmc_mat2_trace
+#  define glm_mat2_scale           glmc_mat2_scale
+#  define glm_mat2_det             glmc_mat2_det
+#  define glm_mat2_inv             glmc_mat2_inv
+#  define glm_mat2_swap_col        glmc_mat2_swap_col
+#  define glm_mat2_swap_row        glmc_mat2_swap_row
+#  define glm_mat2_rmc             glmc_mat2_rmc
+#endif /* C89 interface */
 #endif /* cglm_mat2_h */

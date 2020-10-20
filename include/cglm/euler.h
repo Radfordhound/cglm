@@ -37,6 +37,10 @@
 
 #include "common.h"
 
+#if defined(cglm_euler_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
 /*!
  * if you have axis order like vec3 orderVec = [0, 1, 2] or [0, 2, 1]...
  * vector then you can convert it to this enum by doing this:
@@ -55,6 +59,7 @@ typedef enum glm_euler_seq {
   GLM_EULER_ZYX = 2 << 0 | 1 << 2 | 0 << 4
 } glm_euler_seq;
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 glm_euler_seq
 glm_euler_order(int ord[3]) {
@@ -447,5 +452,17 @@ glm_euler_by_order(vec3 angles, glm_euler_seq ord, mat4 dest) {
   dest[3][2] = 0.0f;
   dest[3][3] = 1.0f;
 }
-
+#else /* standard interface */
+#  include "call/euler.h"
+#  define glm_euler_order     glmc_euler_order
+#  define glm_euler_angles    glmc_euler_angles
+#  define glm_euler_xyz       glmc_euler_xyz
+#  define glm_euler           glmc_euler
+#  define glm_euler_xzy       glmc_euler_xzy
+#  define glm_euler_yxz       glmc_euler_yxz
+#  define glm_euler_yzx       glmc_euler_yzx
+#  define glm_euler_zxy       glmc_euler_zxy
+#  define glm_euler_zyx       glmc_euler_zyx
+#  define glm_euler_by_order  glmc_euler_by_order
+#endif /* C89 interface */
 #endif /* cglm_euler_h */

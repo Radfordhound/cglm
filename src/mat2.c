@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_mat2_c
+#include "../include/cglm/mat2.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/mat2.h"
 
 CGLM_EXPORT
 void

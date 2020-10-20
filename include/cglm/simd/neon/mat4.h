@@ -12,6 +12,7 @@
 #include "../../common.h"
 #include "../intrin.h"
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 void
 glm_mat4_scale_neon(mat4 m, float s) {
@@ -101,5 +102,6 @@ glm_mat4_mulv_neon(mat4 m, vec4 v, vec4 dest) {
   vst1q_f32(dest, l0);
 }
 
-#endif
+#endif /* CGLM_INLINE */
+#endif /* __ARM_NEON_FP */
 #endif /* cglm_mat4_neon_h */

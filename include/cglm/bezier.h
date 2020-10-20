@@ -9,6 +9,11 @@
 #define cglm_bezier_h
 
 #include "common.h"
+#include "util.h"
+
+#if defined(cglm_bezier_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 #define GLM_BEZIER_MAT_INIT  {{-1.0f,  3.0f, -3.0f,  1.0f},                   \
                               { 3.0f, -6.0f,  3.0f,  0.0f},                   \
@@ -26,6 +31,7 @@
 #define CGLM_DECASTEL_MAX   1000.0f
 #define CGLM_DECASTEL_SMALL 1e-20f
 
+#ifdef CGLM_INLINE
 /*!
  * @brief cubic bezier interpolation
  *
@@ -150,5 +156,10 @@ glm_decasteljau(float prm, float p0, float c0, float c1, float p1) {
 
   return glm_clamp_zo((u  + v) * 0.5f);
 }
-
+#else /* standard interface */
+#  include "call/bezier.h"
+#  define glm_bezier       glmc_bezier
+#  define glm_hermite      glmc_hermite
+#  define glm_decasteljau  glmc_decasteljau
+#endif /* C89 interface */
 #endif /* cglm_bezier_h */

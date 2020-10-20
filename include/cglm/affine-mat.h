@@ -18,6 +18,10 @@
 #include "mat4.h"
 #include "mat3.h"
 
+#if defined(cglm_affine_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
 #ifdef CGLM_SSE_FP
 #  include "simd/sse2/affine.h"
 #endif
@@ -26,6 +30,7 @@
 #  include "simd/avx/affine.h"
 #endif
 
+#ifdef CGLM_INLINE
 /*!
  * @brief this is similar to glm_mat4_mul but specialized to affine transform
  *
@@ -164,5 +169,10 @@ glm_inv_tr(mat4 mat) {
   glm_vec3_copy(t, mat[3]);
 #endif
 }
-
+#else /* standard interface */
+#  include "call/affine.h"
+#  define glm_mul      glmc_mul
+#  define glm_mul_rot  glmc_mul_rot
+#  define glm_inv_tr   glmc_inv_tr
+#endif /* C89 interface */
 #endif /* cglm_affine_mat_h */

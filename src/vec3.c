@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_vec3_c
+#include "../include/cglm/vec3.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/vec3.h"
 
 CGLM_EXPORT
 void
@@ -274,6 +276,18 @@ glmc_vec3_lerpc(vec3 from, vec3 to, float t, vec3 dest) {
 
 CGLM_EXPORT
 void
+glmc_vec3_mix(vec3 from, vec3 to, float t, vec3 dest) {
+  glm_vec3_mix(from, to, t, dest);
+}
+
+CGLM_EXPORT
+void
+glmc_vec3_mixc(vec3 from, vec3 to, float t, vec3 dest) {
+  glm_vec3_mixc(from, to, t, dest);
+}
+
+CGLM_EXPORT
+void
 glmc_vec3_step_uni(float edge, vec3 x, vec3 dest) {
   glm_vec3_step_uni(edge, x, dest);
 }
@@ -306,6 +320,36 @@ CGLM_EXPORT
 void
 glmc_vec3_smoothinterpc(vec3 from, vec3 to, float t, vec3 dest) {
   glm_vec3_smoothinterpc(from, to, t, dest);
+}
+
+CGLM_EXPORT
+void
+glmc_vec3_swizzle(vec3 v, int mask, vec3 dest) {
+  glm_vec3_swizzle(v, mask, dest);
+}
+
+CGLM_EXPORT
+void
+glmc_cross(vec3 a, vec3 b, vec3 d) {
+  glm_cross(a, b, d);
+}
+
+CGLM_EXPORT
+float
+glmc_dot(vec3 a, vec3 b) {
+  return glm_dot(a, b);
+}
+
+CGLM_EXPORT
+void
+glmc_normalize(vec3 v) {
+  glm_normalize(v);
+}
+
+CGLM_EXPORT
+void
+glmc_normalize_to(vec3 v, vec3 dest) {
+  glm_normalize_to(v, dest);
 }
 
 /* ext */

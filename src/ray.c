@@ -1,5 +1,7 @@
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_ray_c
+#include "../include/cglm/ray.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/ray.h"
 
 CGLM_EXPORT
 bool

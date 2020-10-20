@@ -36,6 +36,11 @@
 #include "common.h"
 #include "util.h"
 
+#if defined(cglm_vec3_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief fill a vector with specified value
  *
@@ -268,5 +273,24 @@ glm_vec3_sqrt(vec3 v, vec3 dest) {
   dest[1] = sqrtf(v[1]);
   dest[2] = sqrtf(v[2]);
 }
-
+#else /* standard interface */
+#  include "call/vec3.h"
+#  define glm_vec3_broadcast  glmc_vec3_broadcast
+#  define glm_vec3_fill       glmc_vec3_fill
+#  define glm_vec3_eq         glmc_vec3_eq
+#  define glm_vec3_eq_eps     glmc_vec3_eq_eps
+#  define glm_vec3_eq_all     glmc_vec3_eq_all
+#  define glm_vec3_eqv        glmc_vec3_eqv
+#  define glm_vec3_eqv_eps    glmc_vec3_eqv_eps
+#  define glm_vec3_max        glmc_vec3_max
+#  define glm_vec3_min        glmc_vec3_min
+#  define glm_vec3_isnan      glmc_vec3_isnan
+#  define glm_vec3_isinf      glmc_vec3_isinf
+#  define glm_vec3_isvalid    glmc_vec3_isvalid
+#  define glm_vec3_sign       glmc_vec3_sign
+#  define glm_vec3_abs        glmc_vec3_abs
+#  define glm_vec3_fract      glmc_vec3_fract
+#  define glm_vec3_hadd       glmc_vec3_hadd
+#  define glm_vec3_sqrt       glmc_vec3_sqrt
+#endif /* C89 interface */
 #endif /* cglm_vec3_ext_h */

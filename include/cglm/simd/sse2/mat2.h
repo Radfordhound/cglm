@@ -12,6 +12,7 @@
 #include "../../common.h"
 #include "../intrin.h"
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 void
 glm_mat2_mul_sse2(mat2 m1, mat2 m2, mat2 dest) {
@@ -41,5 +42,6 @@ glm_mat2_transp_sse2(mat2 m, mat2 dest) {
   glmm_store(dest[0], glmm_shuff1(glmm_load(m[0]), 3, 1, 2, 0));
 }
 
-#endif
+#endif /* CGLM_INLINE */
+#endif /* __SSE__ || __SSE2__ */
 #endif /* cglm_mat2_sse_h */

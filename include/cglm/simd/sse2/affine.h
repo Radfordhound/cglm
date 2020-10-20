@@ -12,6 +12,7 @@
 #include "../../common.h"
 #include "../intrin.h"
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 void
 glm_mul_sse2(mat4 m1, mat4 m2, mat4 dest) {
@@ -107,5 +108,6 @@ glm_inv_tr_sse2(mat4 mat) {
   glmm_store(mat[3], x0);
 }
 
-#endif
+#endif /* CGLM_INLINE */
+#endif /* __SSE__ || __SSE2__ */
 #endif /* cglm_affine_mat_sse2_h */

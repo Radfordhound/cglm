@@ -14,6 +14,7 @@
 
 #include <immintrin.h>
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 void
 glm_mul_avx(mat4 m1, mat4 m2, mat4 dest) {
@@ -62,5 +63,6 @@ glm_mul_avx(mat4 m1, mat4 m2, mat4 dest) {
                                             _mm256_mul_ps(y5, y9))));
 }
 
-#endif
+#endif /* CGLM_INLINE */
+#endif /* __AVX__ */
 #endif /* cglm_affine_mat_avx_h */

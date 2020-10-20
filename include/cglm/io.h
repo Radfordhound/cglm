@@ -39,9 +39,14 @@
    || defined(CGLM_NO_PRINTS_NOOP)
 
 #include "common.h"
+#include "util.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if defined(cglm_io_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 #ifndef CGLM_PRINT_PRECISION
 #  define CGLM_PRINT_PRECISION    5
@@ -59,6 +64,7 @@
 #  define CGLM_PRINT_COLOR_RESET  "\033[0m"
 #endif
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 void
 glm_mat4_print(mat4              matrix,
@@ -321,7 +327,18 @@ glm_aabb_print(vec3                    bbox[2],
 
 #undef m
 }
-
+#else /* standard interface */
+#  include "call/io.h"
+#  define glm_mat4_print    glmc_mat4_print
+#  define glm_mat3_print    glmc_mat3_print
+#  define glm_mat2_print    glmc_mat2_print
+#  define glm_vec4_print    glmc_vec4_print
+#  define glm_vec3_print    glmc_vec3_print
+#  define glm_ivec3_print   glmc_ivec3_print
+#  define glm_vec2_print    glmc_vec2_print
+#  define glm_versor_print  glmc_versor_print
+#  define glm_aabb_print    glmc_aabb_print
+#endif /* C89 interface */
 #else
 
 #include "common.h"

@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_curve_c
+#include "../include/cglm/curve.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/curve.h"
 
 CGLM_EXPORT
 float

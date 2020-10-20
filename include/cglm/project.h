@@ -13,6 +13,11 @@
 #include "vec4.h"
 #include "mat4.h"
 
+#if defined(cglm_project_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief maps the specified viewport coordinates into specified space [1]
  *        the matrix should contain projection matrix.
@@ -114,5 +119,10 @@ glm_project(vec3 pos, mat4 m, vec4 vp, vec3 dest) {
   dest[1] = pos4[1] * vp[3] + vp[1];
   dest[2] = pos4[2];
 }
-
+#else /* standard interface */
+#  include "call/project.h"
+#  define glm_unprojecti  glmc_unprojecti
+#  define glm_unproject   glmc_unproject
+#  define glm_project     glmc_project
+#endif /* C89 interface */
 #endif /* cglm_project_h */

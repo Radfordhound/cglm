@@ -5,8 +5,16 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_euler_c
+#include "../include/cglm/euler.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/euler.h"
+
+CGLM_EXPORT
+glm_euler_seq
+glmc_euler_order(int ord[3]) {
+  return glm_euler_order(ord);
+}
 
 CGLM_EXPORT
 void

@@ -75,14 +75,9 @@
 #include "vec4-ext.h"
 #include "util.h"
 
-/* DEPRECATED! functions */
-#define glm_vec4_dup3(v, dest)         glm_vec4_copy3(v, dest)
-#define glm_vec4_dup(v, dest)          glm_vec4_copy(v, dest)
-#define glm_vec4_flipsign(v)           glm_vec4_negate(v)
-#define glm_vec4_flipsign_to(v, dest)  glm_vec4_negate_to(v, dest)
-#define glm_vec4_inv(v)                glm_vec4_negate(v)
-#define glm_vec4_inv_to(v, dest)       glm_vec4_negate_to(v, dest)
-#define glm_vec4_mulv(a, b, d)         glm_vec4_mul(a, b, d)
+#if defined(cglm_vec4_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 #define GLM_VEC4_ONE_INIT   {1.0f, 1.0f, 1.0f, 1.0f}
 #define GLM_VEC4_BLACK_INIT {0.0f, 0.0f, 0.0f, 1.0f}
@@ -98,6 +93,7 @@
 #define GLM_WWWW GLM_SHUFFLE4(3, 3, 3, 3)
 #define GLM_WZYX GLM_SHUFFLE4(0, 1, 2, 3)
 
+#ifdef CGLM_INLINE
 /*!
  * @brief init vec4 using vec3
  *
@@ -1074,5 +1070,63 @@ glm_vec4_swizzle(vec4 v, int mask, vec4 dest) {
 
   glm_vec4_copy(t, dest);
 }
+#else /* standard interface */
+#  include "call/vec4.h"
+#  define glm_vec4                 glmc_vec4
+#  define glm_vec4_copy3           glmc_vec4_copy3
+#  define glm_vec4_copy            glmc_vec4_copy
+#  define glm_vec4_ucopy           glmc_vec4_ucopy
+#  define glm_vec4_zero            glmc_vec4_zero
+#  define glm_vec4_one             glmc_vec4_one
+#  define glm_vec4_dot             glmc_vec4_dot
+#  define glm_vec4_norm2           glmc_vec4_norm2
+#  define glm_vec4_norm            glmc_vec4_norm
+#  define glm_vec4_norm_one        glmc_vec4_norm_one
+#  define glm_vec4_norm_inf        glmc_vec4_norm_inf
+#  define glm_vec4_add             glmc_vec4_add
+#  define glm_vec4_adds            glmc_vec4_adds
+#  define glm_vec4_sub             glmc_vec4_sub
+#  define glm_vec4_subs            glmc_vec4_subs
+#  define glm_vec4_mul             glmc_vec4_mul
+#  define glm_vec4_scale           glmc_vec4_scale
+#  define glm_vec4_scale_as        glmc_vec4_scale_as
+#  define glm_vec4_div             glmc_vec4_div
+#  define glm_vec4_divs            glmc_vec4_divs
+#  define glm_vec4_addadd          glmc_vec4_addadd
+#  define glm_vec4_subadd          glmc_vec4_subadd
+#  define glm_vec4_muladd          glmc_vec4_muladd
+#  define glm_vec4_muladds         glmc_vec4_muladds
+#  define glm_vec4_maxadd          glmc_vec4_maxadd
+#  define glm_vec4_minadd          glmc_vec4_minadd
+#  define glm_vec4_negate_to       glmc_vec4_negate_to
+#  define glm_vec4_negate          glmc_vec4_negate
+#  define glm_vec4_normalize_to    glmc_vec4_normalize_to
+#  define glm_vec4_normalize       glmc_vec4_normalize
+#  define glm_vec4_distance        glmc_vec4_distance
+#  define glm_vec4_distance2       glmc_vec4_distance2
+#  define glm_vec4_maxv            glmc_vec4_maxv
+#  define glm_vec4_minv            glmc_vec4_minv
+#  define glm_vec4_clamp           glmc_vec4_clamp
+#  define glm_vec4_lerp            glmc_vec4_lerp
+#  define glm_vec4_lerpc           glmc_vec4_lerpc
+#  define glm_vec4_mix             glmc_vec4_mix
+#  define glm_vec4_mixc            glmc_vec4_mixc
+#  define glm_vec4_step_uni        glmc_vec4_step_uni
+#  define glm_vec4_step            glmc_vec4_step
+#  define glm_vec4_smoothstep_uni  glmc_vec4_smoothstep_uni
+#  define glm_vec4_smoothstep      glmc_vec4_smoothstep
+#  define glm_vec4_smoothinterp    glmc_vec4_smoothinterp
+#  define glm_vec4_smoothinterpc   glmc_vec4_smoothinterpc
+#  define glm_vec4_cubic           glmc_vec4_cubic
+#  define glm_vec4_swizzle         glmc_vec4_swizzle
+#endif /* C89 interface */
 
+/* DEPRECATED! functions */
+#define glm_vec4_dup3(v, dest)         glm_vec4_copy3(v, dest)
+#define glm_vec4_dup(v, dest)          glm_vec4_copy(v, dest)
+#define glm_vec4_flipsign(v)           glm_vec4_negate(v)
+#define glm_vec4_flipsign_to(v, dest)  glm_vec4_negate_to(v, dest)
+#define glm_vec4_inv(v)                glm_vec4_negate(v)
+#define glm_vec4_inv_to(v, dest)       glm_vec4_negate_to(v, dest)
+#define glm_vec4_mulv(a, b, d)         glm_vec4_mul(a, b, d)
 #endif /* cglm_vec4_h */

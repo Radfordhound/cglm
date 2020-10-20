@@ -11,7 +11,9 @@
 extern "C" {
 #endif
 
-#include "../cglm.h"
+#ifndef cglm_types_h
+#  include "../cglm.h"
+#endif
 
 /* DEPRECATED! use _copy, _ucopy versions */
 #define glmc_vec4_dup3(v, dest)         glmc_vec4_copy3(v, dest)
@@ -169,17 +171,13 @@ CGLM_EXPORT
 void
 glmc_vec4_lerpc(vec4 from, vec4 to, float t, vec4 dest);
     
-CGLM_INLINE
+CGLM_EXPORT
 void
-glmc_vec4_mix(vec4 from, vec4 to, float t, vec4 dest) {
-  glmc_vec4_lerp(from, to, t, dest);
-}
+glmc_vec4_mix(vec4 from, vec4 to, float t, vec4 dest);
 
-CGLM_INLINE
+CGLM_EXPORT
 void
-glmc_vec4_mixc(vec4 from, vec4 to, float t, vec4 dest) {
-  glmc_vec4_lerpc(from, to, t, dest);
-}
+glmc_vec4_mixc(vec4 from, vec4 to, float t, vec4 dest);
     
 CGLM_EXPORT
 void
@@ -208,6 +206,10 @@ glmc_vec4_smoothinterpc(vec4 from, vec4 to, float t, vec4 dest);
 CGLM_EXPORT
 void
 glmc_vec4_cubic(float s, vec4 dest);
+
+CGLM_EXPORT
+void
+glmc_vec4_swizzle(vec4 v, int mask, vec4 dest);
 
 /* ext */
 

@@ -29,6 +29,11 @@
 #include "vec2.h"
 #include "mat3.h"
 
+#if defined(cglm_affine2d_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief translate existing 2d transform matrix by v vector
  *        and stores result in same matrix
@@ -264,5 +269,19 @@ glm_rotate2d_to(mat3 m, float angle, mat3 dest) {
   dest[2][1] = m[2][1];
   dest[2][2] = m[2][2];
 }
-
+#else /* standard interface */
+#  include "call/affine2d.h"
+#  define glm_translate2d       glmc_translate2d
+#  define glm_translate2d_to    glmc_translate2d_to
+#  define glm_translate2d_x     glmc_translate2d_x
+#  define glm_translate2d_y     glmc_translate2d_y
+#  define glm_translate2d_make  glmc_translate2d_make
+#  define glm_scale2d_to        glmc_scale2d_to
+#  define glm_scale2d_make      glmc_scale2d_make
+#  define glm_scale2d           glmc_scale2d
+#  define glm_scale2d_uni       glmc_scale2d_uni
+#  define glm_rotate2d_make     glmc_rotate2d_make
+#  define glm_rotate2d          glmc_rotate2d
+#  define glm_rotate2d_to       glmc_rotate2d_to
+#endif /* C89 interface */
 #endif /* cglm_affine2d_h */

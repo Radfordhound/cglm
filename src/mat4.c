@@ -5,13 +5,15 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_mat_c
+#include "../include/cglm/mat4.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/mat4.h"
 
 CGLM_EXPORT
 void
 glmc_mat4_ucopy(mat4 mat, mat4 dest) {
-  glm_mat4_copy(mat, dest);
+  glm_mat4_ucopy(mat, dest);
 }
 
 CGLM_EXPORT

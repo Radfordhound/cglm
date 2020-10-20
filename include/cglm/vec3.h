@@ -97,13 +97,9 @@
 #include "vec3-ext.h"
 #include "util.h"
 
-/* DEPRECATED! use _copy, _ucopy versions */
-#define glm_vec3_dup(v, dest)         glm_vec3_copy(v, dest)
-#define glm_vec3_flipsign(v)          glm_vec3_negate(v)
-#define glm_vec3_flipsign_to(v, dest) glm_vec3_negate_to(v, dest)
-#define glm_vec3_inv(v)               glm_vec3_negate(v)
-#define glm_vec3_inv_to(v, dest)      glm_vec3_negate_to(v, dest)
-#define glm_vec3_mulv(a, b, d)        glm_vec3_mul(a, b, d)
+#if defined(cglm_vec3_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 #define GLM_VEC3_ONE_INIT   {1.0f, 1.0f, 1.0f}
 #define GLM_VEC3_ZERO_INIT  {0.0f, 0.0f, 0.0f}
@@ -121,6 +117,7 @@
 #define GLM_ZZZ GLM_SHUFFLE3(2, 2, 2)
 #define GLM_ZYX GLM_SHUFFLE3(0, 1, 2)
 
+#ifdef CGLM_INLINE
 /*!
  * @brief init vec3 using vec4
  *
@@ -1075,5 +1072,73 @@ void
 glm_normalize_to(vec3 v, vec3 dest) {
   glm_vec3_normalize_to(v, dest);
 }
+#else /* standard interface */
+#  include "call/vec3.h"
+#  define glm_vec3                 glmc_vec3
+#  define glm_vec3_copy            glmc_vec3_copy
+#  define glm_vec3_zero            glmc_vec3_zero
+#  define glm_vec3_one             glmc_vec3_one
+#  define glm_vec3_dot             glmc_vec3_dot
+#  define glm_vec3_norm2           glmc_vec3_norm2
+#  define glm_vec3_norm            glmc_vec3_norm
+#  define glm_vec3_norm_one        glmc_vec3_norm_one
+#  define glm_vec3_norm_inf        glmc_vec3_norm_inf
+#  define glm_vec3_add             glmc_vec3_add
+#  define glm_vec3_adds            glmc_vec3_adds
+#  define glm_vec3_sub             glmc_vec3_sub
+#  define glm_vec3_subs            glmc_vec3_subs
+#  define glm_vec3_mul             glmc_vec3_mul
+#  define glm_vec3_scale           glmc_vec3_scale
+#  define glm_vec3_scale_as        glmc_vec3_scale_as
+#  define glm_vec3_div             glmc_vec3_div
+#  define glm_vec3_divs            glmc_vec3_divs
+#  define glm_vec3_addadd          glmc_vec3_addadd
+#  define glm_vec3_subadd          glmc_vec3_subadd
+#  define glm_vec3_muladd          glmc_vec3_muladd
+#  define glm_vec3_muladds         glmc_vec3_muladds
+#  define glm_vec3_maxadd          glmc_vec3_maxadd
+#  define glm_vec3_minadd          glmc_vec3_minadd
+#  define glm_vec3_negate_to       glmc_vec3_negate_to
+#  define glm_vec3_negate          glmc_vec3_negate
+#  define glm_vec3_normalize       glmc_vec3_normalize
+#  define glm_vec3_normalize_to    glmc_vec3_normalize_to
+#  define glm_vec3_cross           glmc_vec3_cross
+#  define glm_vec3_crossn          glmc_vec3_crossn
+#  define glm_vec3_angle           glmc_vec3_angle
+#  define glm_vec3_rotate          glmc_vec3_rotate
+#  define glm_vec3_rotate_m4       glmc_vec3_rotate_m4
+#  define glm_vec3_rotate_m3       glmc_vec3_rotate_m3
+#  define glm_vec3_proj            glmc_vec3_proj
+#  define glm_vec3_center          glmc_vec3_center
+#  define glm_vec3_distance2       glmc_vec3_distance2
+#  define glm_vec3_distance        glmc_vec3_distance
+#  define glm_vec3_maxv            glmc_vec3_maxv
+#  define glm_vec3_minv            glmc_vec3_minv
+#  define glm_vec3_ortho           glmc_vec3_ortho
+#  define glm_vec3_clamp           glmc_vec3_clamp
+#  define glm_vec3_lerp            glmc_vec3_lerp
+#  define glm_vec3_lerpc           glmc_vec3_lerpc
+#  define glm_vec3_mix             glmc_vec3_mix
+#  define glm_vec3_mixc            glmc_vec3_mixc
+#  define glm_vec3_step_uni        glmc_vec3_step_uni
+#  define glm_vec3_step            glmc_vec3_step
+#  define glm_vec3_smoothstep_uni  glmc_vec3_smoothstep_uni
+#  define glm_vec3_smoothstep      glmc_vec3_smoothstep
+#  define glm_vec3_smoothinterp    glmc_vec3_smoothinterp
+#  define glm_vec3_smoothinterpc   glmc_vec3_smoothinterpc
+#  define glm_vec3_swizzle         glmc_vec3_swizzle
+#  define glm_cross                glmc_cross
+#  define glm_dot                  glmc_dot
+#  define glm_normalize            glmc_normalize
+#  define glm_normalize_to         glmc_normalize_to
+#endif /* C89 interface */
+
+/* DEPRECATED! use _copy, _ucopy versions */
+#define glm_vec3_dup(v, dest)         glm_vec3_copy(v, dest)
+#define glm_vec3_flipsign(v)          glm_vec3_negate(v)
+#define glm_vec3_flipsign_to(v, dest) glm_vec3_negate_to(v, dest)
+#define glm_vec3_inv(v)               glm_vec3_negate(v)
+#define glm_vec3_inv_to(v, dest)      glm_vec3_negate_to(v, dest)
+#define glm_vec3_mulv(a, b, d)        glm_vec3_mul(a, b, d)
 
 #endif /* cglm_vec3_h */

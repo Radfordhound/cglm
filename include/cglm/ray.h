@@ -20,6 +20,11 @@
 
 #include "vec3.h"
 
+#if defined(cglm_ray_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief Möller–Trumbore ray-triangle intersection algorithm
  * 
@@ -73,5 +78,8 @@ glm_ray_triangle(vec3   origin,
 
   return dist > epsilon;
 }
-
+#else /* standard interface */
+#  include "call/ray.h"
+#  define glm_ray_triangle  glmc_ray_triangle
+#endif /* C89 interface */
 #endif

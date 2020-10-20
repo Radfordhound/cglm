@@ -12,6 +12,7 @@
 #include "../../common.h"
 #include "../intrin.h"
 
+#ifdef CGLM_INLINE
 CGLM_INLINE
 void
 glm_quat_mul_sse2(versor p, versor q, versor dest) {
@@ -41,6 +42,6 @@ glm_quat_mul_sse2(versor p, versor q, versor dest) {
   glmm_store(dest, r);
 }
 
-
-#endif
+#endif /* CGLM_INLINE */
+#endif /* __SSE__ || __SSE2__ */
 #endif /* cglm_quat_simd_h */

@@ -16,11 +16,9 @@
 #  define _CRT_SECURE_NO_WARNINGS /* for windows */
 #endif
 
-#include <stdint.h>
 #include <stddef.h>
 #include <math.h>
 #include <float.h>
-#include <stdbool.h>
 
 #if defined(_MSC_VER)
 #  ifdef CGLM_STATIC
@@ -30,10 +28,22 @@
 #  else
 #    define CGLM_EXPORT __declspec(dllimport)
 #  endif
-#  define CGLM_INLINE __forceinline
+#  ifndef __STDC__ /* defined if MSVC extensions are disabled */
+#    define CGLM_INLINE __forceinline
+#  endif
 #else
 #  define CGLM_EXPORT __attribute__((visibility("default")))
-#  define CGLM_INLINE static inline __attribute((always_inline))
+#  ifdef __GNUC__ /* should be defined on all compilers that support GCC extensions */
+#    define CGLM_INLINE static inline __attribute((always_inline))
+#  endif
+#endif
+
+#ifndef CGLM_INLINE
+#  ifdef __cplusplus
+#    define CGLM_INLINE inline
+#  elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#    define CGLM_INLINE static inline
+#  endif
 #endif
 
 #define GLM_SHUFFLE4(z, y, x, w) (((z) << 6) | ((y) << 4) | ((x) << 2) | (w))

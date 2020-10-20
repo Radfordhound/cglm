@@ -57,37 +57,30 @@
 #include "vec4.h"
 #include "mat4.h"
 #include "mat3.h"
-#include "affine-mat.h"
+#include "affine.h"
+
+#if defined(cglm_quat_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
 
 #ifdef CGLM_SSE_FP
 #  include "simd/sse2/quat.h"
 #endif
 
-CGLM_INLINE
-void
-glm_mat4_mulv(mat4 m, vec4 v, vec4 dest);
-
-CGLM_INLINE
-void
-glm_mul_rot(mat4 m1, mat4 m2, mat4 dest);
-
-CGLM_INLINE
-void
-glm_translate(mat4 m, vec3 v);
-
-/*
- * IMPORTANT:
- * ----------------------------------------------------------------------------
- * cglm stores quat as [x, y, z, w] since v0.3.6
- *
- * it was [w, x, y, z] before v0.3.6 it has been changed to [x, y, z, w]
- * with v0.3.6 version.
- * ----------------------------------------------------------------------------
- */
+ /*
+  * IMPORTANT:
+  * ----------------------------------------------------------------------------
+  * cglm stores quat as [x, y, z, w] since v0.3.6
+  *
+  * it was [w, x, y, z] before v0.3.6 it has been changed to [x, y, z, w]
+  * with v0.3.6 version.
+  * ----------------------------------------------------------------------------
+  */
 
 #define GLM_QUAT_IDENTITY_INIT  {0.0f, 0.0f, 0.0f, 1.0f}
 #define GLM_QUAT_IDENTITY       ((versor)GLM_QUAT_IDENTITY_INIT)
 
+#ifdef CGLM_INLINE
 /*!
  * @brief makes given quat to identity
  *
@@ -810,5 +803,42 @@ glm_quat_rotate_atm(mat4 m, versor q, vec3 pivot) {
   glm_quat_rotate(m, q, m);
   glm_translate(m, pivotInv);
 }
-
+#else /* standard interface */
+#  include "call/quat.h"
+#  define glm_quat_identity        glmc_quat_identity
+#  define glm_quat_identity_array  glmc_quat_identity_array
+#  define glm_quat_init            glmc_quat_init
+#  define glm_quatv                glmc_quatv
+#  define glm_quat                 glmc_quat
+#  define glm_quat_copy            glmc_quat_copy
+#  define glm_quat_norm            glmc_quat_norm
+#  define glm_quat_normalize_to    glmc_quat_normalize_to
+#  define glm_quat_normalize       glmc_quat_normalize
+#  define glm_quat_dot             glmc_quat_dot
+#  define glm_quat_conjugate       glmc_quat_conjugate
+#  define glm_quat_inv             glmc_quat_inv
+#  define glm_quat_add             glmc_quat_add
+#  define glm_quat_sub             glmc_quat_sub
+#  define glm_quat_real            glmc_quat_real
+#  define glm_quat_imag            glmc_quat_imag
+#  define glm_quat_imagn           glmc_quat_imagn
+#  define glm_quat_imaglen         glmc_quat_imaglen
+#  define glm_quat_angle           glmc_quat_angle
+#  define glm_quat_axis            glmc_quat_axis
+#  define glm_quat_mul             glmc_quat_mul
+#  define glm_quat_mat4            glmc_quat_mat4
+#  define glm_quat_mat4t           glmc_quat_mat4t
+#  define glm_quat_mat3            glmc_quat_mat3
+#  define glm_quat_mat3t           glmc_quat_mat3t
+#  define glm_quat_lerp            glmc_quat_lerp
+#  define glm_quat_lerpc           glmc_quat_lerpc
+#  define glm_quat_slerp           glmc_quat_slerp
+#  define glm_quat_look            glmc_quat_look
+#  define glm_quat_for             glmc_quat_for
+#  define glm_quat_forp            glmc_quat_forp
+#  define glm_quat_rotatev         glmc_quat_rotatev
+#  define glm_quat_rotate          glmc_quat_rotate
+#  define glm_quat_rotate_at       glmc_quat_rotate_at
+#  define glm_quat_rotate_atm      glmc_quat_rotate_atm
+#endif /* C89 interface */
 #endif /* cglm_quat_h */

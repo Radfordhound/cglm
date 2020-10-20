@@ -63,6 +63,11 @@
 #define GLM_VEC2_ONE  ((vec2)GLM_VEC2_ONE_INIT)
 #define GLM_VEC2_ZERO ((vec2)GLM_VEC2_ZERO_INIT)
 
+#if defined(cglm_vec2_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief init vec2 using another vector
  *
@@ -581,5 +586,41 @@ glm_vec2_lerp(vec2 from, vec2 to, float t, vec2 dest) {
   glm_vec2_mul(s, v, v);
   glm_vec2_add(from, v, dest);
 }
-
+#else /* standard interface */
+#  include "call/vec2.h"
+#  define glm_vec2               glmc_vec2
+#  define glm_vec2_copy          glmc_vec2_copy
+#  define glm_vec2_zero          glmc_vec2_zero
+#  define glm_vec2_one           glmc_vec2_one
+#  define glm_vec2_dot           glmc_vec2_dot
+#  define glm_vec2_cross         glmc_vec2_cross
+#  define glm_vec2_norm2         glmc_vec2_norm2
+#  define glm_vec2_norm          glmc_vec2_norm
+#  define glm_vec2_add           glmc_vec2_add
+#  define glm_vec2_adds          glmc_vec2_adds
+#  define glm_vec2_sub           glmc_vec2_sub
+#  define glm_vec2_subs          glmc_vec2_subs
+#  define glm_vec2_mul           glmc_vec2_mul
+#  define glm_vec2_scale         glmc_vec2_scale
+#  define glm_vec2_scale_as      glmc_vec2_scale_as
+#  define glm_vec2_div           glmc_vec2_div
+#  define glm_vec2_divs          glmc_vec2_divs
+#  define glm_vec2_addadd        glmc_vec2_addadd
+#  define glm_vec2_subadd        glmc_vec2_subadd
+#  define glm_vec2_muladd        glmc_vec2_muladd
+#  define glm_vec2_muladds       glmc_vec2_muladds
+#  define glm_vec2_maxadd        glmc_vec2_maxadd
+#  define glm_vec2_minadd        glmc_vec2_minadd
+#  define glm_vec2_negate_to     glmc_vec2_negate_to
+#  define glm_vec2_negate        glmc_vec2_negate
+#  define glm_vec2_normalize     glmc_vec2_normalize
+#  define glm_vec2_normalize_to  glmc_vec2_normalize_to
+#  define glm_vec2_rotate        glmc_vec2_rotate
+#  define glm_vec2_distance2     glmc_vec2_distance2
+#  define glm_vec2_distance      glmc_vec2_distance
+#  define glm_vec2_maxv          glmc_vec2_maxv
+#  define glm_vec2_minv          glmc_vec2_minv
+#  define glm_vec2_clamp         glmc_vec2_clamp
+#  define glm_vec2_lerp          glmc_vec2_lerp
+#endif /* C89 interface */
 #endif /* cglm_vec2_h */

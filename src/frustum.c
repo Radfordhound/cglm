@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_frustum_c
+#include "../include/cglm/frustum.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/frustum.h"
 
 CGLM_EXPORT
 void

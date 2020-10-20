@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_vec4_c
+#include "../include/cglm/vec4.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/vec4.h"
 
 CGLM_EXPORT
 void
@@ -232,6 +234,18 @@ glmc_vec4_lerpc(vec4 from, vec4 to, float t, vec4 dest) {
 
 CGLM_EXPORT
 void
+glmc_vec4_mix(vec4 from, vec4 to, float t, vec4 dest) {
+  glm_vec4_mix(from, to, t, dest);
+}
+
+CGLM_EXPORT
+void
+glmc_vec4_mixc(vec4 from, vec4 to, float t, vec4 dest) {
+  glm_vec4_mixc(from, to, t, dest);
+}
+
+CGLM_EXPORT
+void
 glmc_vec4_step_uni(float edge, vec4 x, vec4 dest) {
   glm_vec4_step_uni(edge, x, dest);
 }
@@ -270,6 +284,12 @@ CGLM_EXPORT
 void
 glmc_vec4_cubic(float s, vec4 dest) {
   glm_vec4_cubic(s, dest);
+}
+
+CGLM_EXPORT
+void
+glmc_vec4_swizzle(vec4 v, int mask, vec4 dest) {
+  glm_vec4_swizzle(v, mask, dest);
 }
 
 /* ext */

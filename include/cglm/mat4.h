@@ -52,6 +52,10 @@
 #include "vec4.h"
 #include "vec3.h"
 
+#if defined(cglm_mat_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
 #ifdef CGLM_SSE_FP
 #  include "simd/sse2/mat4.h"
 #endif
@@ -82,13 +86,7 @@
 #define GLM_MAT4_IDENTITY ((mat4)GLM_MAT4_IDENTITY_INIT)
 #define GLM_MAT4_ZERO     ((mat4)GLM_MAT4_ZERO_INIT)
 
-/* DEPRECATED! use _copy, _ucopy versions */
-#define glm_mat4_udup(mat, dest) glm_mat4_ucopy(mat, dest)
-#define glm_mat4_dup(mat, dest)  glm_mat4_copy(mat, dest)
-
-/* DEPRECATED! default is precise now. */
-#define glm_mat4_inv_precise(mat, dest) glm_mat4_inv(mat, dest)
-
+#ifdef CGLM_INLINE
 /*!
  * @brief copy all members of [mat] to [dest]
  *
@@ -723,5 +721,40 @@ glm_mat4_rmc(vec4 r, mat4 m, vec4 c) {
   glm_mat4_mulv(m, c, tmp);
   return glm_vec4_dot(r, tmp);
 }
+#else /* standard interface */
+#  include "call/mat4.h"
+#  define glm_mat4_ucopy           glmc_mat4_ucopy
+#  define glm_mat4_copy            glmc_mat4_copy
+#  define glm_mat4_identity        glmc_mat4_identity
+#  define glm_mat4_identity_array  glmc_mat4_identity_array
+#  define glm_mat4_zero            glmc_mat4_zero
+#  define glm_mat4_pick3           glmc_mat4_pick3
+#  define glm_mat4_pick3t          glmc_mat4_pick3t
+#  define glm_mat4_ins3            glmc_mat4_ins3
+#  define glm_mat4_mul             glmc_mat4_mul
+#  define glm_mat4_mulN            glmc_mat4_mulN
+#  define glm_mat4_mulv            glmc_mat4_mulv
+#  define glm_mat4_trace           glmc_mat4_trace
+#  define glm_mat4_trace3          glmc_mat4_trace3
+#  define glm_mat4_quat            glmc_mat4_quat
+#  define glm_mat4_mulv3           glmc_mat4_mulv3
+#  define glm_mat4_transpose_to    glmc_mat4_transpose_to
+#  define glm_mat4_transpose       glmc_mat4_transpose
+#  define glm_mat4_scale_p         glmc_mat4_scale_p
+#  define glm_mat4_scale           glmc_mat4_scale
+#  define glm_mat4_det             glmc_mat4_det
+#  define glm_mat4_inv             glmc_mat4_inv
+#  define glm_mat4_inv_fast        glmc_mat4_inv_fast
+#  define glm_mat4_swap_col        glmc_mat4_swap_col
+#  define glm_mat4_swap_row        glmc_mat4_swap_row
+#  define glm_mat4_rmc             glmc_mat4_rmc
+#endif /* C89 interface */
+
+/* DEPRECATED! use _copy, _ucopy versions */
+#define glm_mat4_udup(mat, dest) glm_mat4_ucopy(mat, dest)
+#define glm_mat4_dup(mat, dest)  glm_mat4_copy(mat, dest)
+
+/* DEPRECATED! default is precise now. */
+#define glm_mat4_inv_precise(mat, dest) glm_mat4_inv(mat, dest)
 
 #endif /* cglm_mat_h */

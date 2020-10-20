@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_affine2d_c
+#include "../include/cglm/affine2d.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/affine2d.h"
 
 CGLM_EXPORT
 void

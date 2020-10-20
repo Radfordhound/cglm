@@ -37,7 +37,10 @@
     <ClCompile Include="..\src\project.c" />
     <ClCompile Include="..\src\quat.c" />
     <ClCompile Include="..\src\ray.c" />
+    <ClCompile Include="..\src\simd\arm.c" />
+    <ClCompile Include="..\src\simd\x86.c" />
     <ClCompile Include="..\src\sphere.c" />
+    <ClCompile Include="..\src\util.c" />
     <ClCompile Include="..\src\vec2.c" />
     <ClCompile Include="..\src\vec3.c" />
     <ClCompile Include="..\src\vec4.c" />

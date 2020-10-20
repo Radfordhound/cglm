@@ -34,8 +34,19 @@
 #define cglm_vec4_ext_h
 
 #include "common.h"
-#include "vec3-ext.h"
 
+#if defined(cglm_vec3_c) && !defined(CGLM_INLINE)
+#  include "vec3-ext.h"
+#  undef CGLM_INLINE
+#else
+#  include "vec3-ext.h"
+#endif
+
+#if defined(cglm_vec4_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief fill a vector with specified value
  *
@@ -309,5 +320,24 @@ glm_vec4_sqrt(vec4 v, vec4 dest) {
   dest[3] = sqrtf(v[3]);
 #endif
 }
-
+#else /* standard interface */
+#  include "call/vec4.h"
+#  define glm_vec4_broadcast  glmc_vec4_broadcast
+#  define glm_vec4_fill       glmc_vec4_fill
+#  define glm_vec4_eq         glmc_vec4_eq
+#  define glm_vec4_eq_eps     glmc_vec4_eq_eps
+#  define glm_vec4_eq_all     glmc_vec4_eq_all
+#  define glm_vec4_eqv        glmc_vec4_eqv
+#  define glm_vec4_eqv_eps    glmc_vec4_eqv_eps
+#  define glm_vec4_max        glmc_vec4_max
+#  define glm_vec4_min        glmc_vec4_min
+#  define glm_vec4_isnan      glmc_vec4_isnan
+#  define glm_vec4_isinf      glmc_vec4_isinf
+#  define glm_vec4_isvalid    glmc_vec4_isvalid
+#  define glm_vec4_sign       glmc_vec4_sign
+#  define glm_vec4_abs        glmc_vec4_abs
+#  define glm_vec4_fract      glmc_vec4_fract
+#  define glm_vec4_hadd       glmc_vec4_hadd
+#  define glm_vec4_sqrt       glmc_vec4_sqrt
+#endif /* C89 interface */
 #endif /* cglm_vec4_ext_h */

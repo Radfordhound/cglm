@@ -28,6 +28,11 @@
 #include "common.h"
 #include "util.h"
 
+#if defined(cglm_vec2_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief fill a vector with specified value
  *
@@ -185,5 +190,20 @@ glm_vec2_sqrt(vec2 v, vec2 dest) {
   dest[0] = sqrtf(v[0]);
   dest[1] = sqrtf(v[1]);
 }
-
+#else /* standard interface */
+#  include "call/vec2.h"
+#  define glm_vec2_fill     glmc_vec2_fill
+#  define glm_vec2_eq       glmc_vec2_eq
+#  define glm_vec2_eq_eps   glmc_vec2_eq_eps
+#  define glm_vec2_eq_all   glmc_vec2_eq_all
+#  define glm_vec2_eqv      glmc_vec2_eqv
+#  define glm_vec2_eqv_eps  glmc_vec2_eqv_eps
+#  define glm_vec2_max      glmc_vec2_max
+#  define glm_vec2_min      glmc_vec2_min
+#  define glm_vec2_isnan    glmc_vec2_isnan
+#  define glm_vec2_isinf    glmc_vec2_isinf
+#  define glm_vec2_isvalid  glmc_vec2_isvalid
+#  define glm_vec2_sign     glmc_vec2_sign
+#  define glm_vec2_sqrt     glmc_vec2_sqrt
+#endif /* C89 interface */
 #endif /* cglm_vec2_ext_h */

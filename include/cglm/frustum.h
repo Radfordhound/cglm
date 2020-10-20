@@ -14,6 +14,10 @@
 #include "vec4.h"
 #include "mat4.h"
 
+#if defined(cglm_frustum_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
 #define GLM_LBN 0 /* left  bottom near */
 #define GLM_LTN 1 /* left  top    near */
 #define GLM_RTN 2 /* right top    near */
@@ -50,6 +54,7 @@
 
 #endif
 
+#ifdef CGLM_INLINE
 /*!
  * @brief extracts view frustum planes
  *
@@ -251,5 +256,12 @@ glm_frustum_corners_at(vec4  corners[8],
   glm_vec4_scale_as(corner, sc, corner);
   glm_vec4_add(corners[GLM_RBN], corner, planeCorners[3]);
 }
-
+#else /* standard interface */
+#  include "call/frustum.h"
+#  define glm_frustum_planes      glmc_frustum_planes
+#  define glm_frustum_corners     glmc_frustum_corners
+#  define glm_frustum_center      glmc_frustum_center
+#  define glm_frustum_box         glmc_frustum_box
+#  define glm_frustum_corners_at  glmc_frustum_corners_at
+#endif /* C89 interface */
 #endif /* cglm_frustum_h */

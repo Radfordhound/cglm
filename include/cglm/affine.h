@@ -40,6 +40,11 @@
 #include "mat4.h"
 #include "affine-mat.h"
 
+#if defined(cglm_affine_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 /*!
  * @brief translate existing transform matrix by v vector
  *        and stores result in same matrix
@@ -483,4 +488,28 @@ glm_decompose(mat4 m, vec4 t, mat4 r, vec3 s) {
   glm_decompose_rs(m, r, s);
 }
 
+#else /* standard interface */
+#  include "call/affine.h"
+#  define glm_translate         glmc_translate
+#  define glm_translate_to      glmc_translate_to
+#  define glm_translate_x       glmc_translate_x
+#  define glm_translate_y       glmc_translate_y
+#  define glm_translate_z       glmc_translate_z
+#  define glm_translate_make    glmc_translate_make
+#  define glm_scale_to          glmc_scale_to
+#  define glm_scale_make        glmc_scale_make
+#  define glm_scale             glmc_scale
+#  define glm_scale_uni         glmc_scale_uni
+#  define glm_rotate_x          glmc_rotate_x
+#  define glm_rotate_y          glmc_rotate_y
+#  define glm_rotate_z          glmc_rotate_z
+#  define glm_rotate_make       glmc_rotate_make
+#  define glm_rotate            glmc_rotate
+#  define glm_rotate_at         glmc_rotate_at
+#  define glm_rotate_atm        glmc_rotate_atm
+#  define glm_decompose_scalev  glmc_decompose_scalev
+#  define glm_uniscaled         glmc_uniscaled
+#  define glm_decompose_rs      glmc_decompose_rs
+#  define glm_decompose         glmc_decompose
+#endif /* C89 interface */
 #endif /* cglm_affine_h */

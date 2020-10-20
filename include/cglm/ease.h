@@ -10,6 +10,11 @@
 
 #include "common.h"
 
+#if defined(cglm_ease_c) && !defined(CGLM_INLINE)
+#  define CGLM_INLINE static
+#endif
+
+#ifdef CGLM_INLINE
 CGLM_INLINE
 float
 glm_ease_linear(float t) {
@@ -313,5 +318,38 @@ glm_ease_bounce_inout(float t) {
 
   return 0.5f * glm_ease_bounce_out(t * 2.0f - 1.0f) + 0.5f;
 }
-
+#else /* standard interface */
+#  include "call/ease.h"
+#  define glm_ease_linear        glmc_ease_linear
+#  define glm_ease_sine_in       glmc_ease_sine_in
+#  define glm_ease_sine_out      glmc_ease_sine_out
+#  define glm_ease_sine_inout    glmc_ease_sine_inout
+#  define glm_ease_quad_in       glmc_ease_quad_in
+#  define glm_ease_quad_out      glmc_ease_quad_out
+#  define glm_ease_quad_inout    glmc_ease_quad_inout
+#  define glm_ease_cubic_in      glmc_ease_cubic_in
+#  define glm_ease_cubic_out     glmc_ease_cubic_out
+#  define glm_ease_cubic_inout   glmc_ease_cubic_inout
+#  define glm_ease_quart_in      glmc_ease_quart_in
+#  define glm_ease_quart_out     glmc_ease_quart_out
+#  define glm_ease_quart_inout   glmc_ease_quart_inout
+#  define glm_ease_quint_in      glmc_ease_quint_in
+#  define glm_ease_quint_out     glmc_ease_quint_out
+#  define glm_ease_quint_inout   glmc_ease_quint_inout
+#  define glm_ease_exp_in        glmc_ease_exp_in
+#  define glm_ease_exp_out       glmc_ease_exp_out
+#  define glm_ease_exp_inout     glmc_ease_exp_inout
+#  define glm_ease_circ_in       glmc_ease_circ_in
+#  define glm_ease_circ_out      glmc_ease_circ_out
+#  define glm_ease_circ_inout    glmc_ease_circ_inout
+#  define glm_ease_back_in       glmc_ease_back_in
+#  define glm_ease_back_out      glmc_ease_back_out
+#  define glm_ease_back_inout    glmc_ease_back_inout
+#  define glm_ease_elast_in      glmc_ease_elast_in
+#  define glm_ease_elast_out     glmc_ease_elast_out
+#  define glm_ease_elast_inout   glmc_ease_elast_inout
+#  define glm_ease_bounce_out    glmc_ease_bounce_out
+#  define glm_ease_bounce_in     glmc_ease_bounce_in
+#  define glm_ease_bounce_inout  glmc_ease_bounce_inout
+#endif /* C89 interface */
 #endif /* cglm_ease_h */

@@ -5,10 +5,12 @@
  * Full license can be found in the LICENSE file
  */
 
+#define cglm_io_c
 #define CGLM_LIB_SRC
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#include "../include/cglm/io.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/io.h"
 
 CGLM_EXPORT
 void

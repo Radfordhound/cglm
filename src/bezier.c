@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_bezier_c
+#include "../include/cglm/bezier.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/bezier.h"
 
 CGLM_EXPORT
 float

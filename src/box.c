@@ -5,8 +5,10 @@
  * Full license can be found in the LICENSE file
  */
 
-#include "../include/cglm/cglm.h"
-#include "../include/cglm/call.h"
+#define cglm_box_c
+#include "../include/cglm/box.h"
+#undef CGLM_INLINE
+#include "../include/cglm/call/box.h"
 
 CGLM_EXPORT
 void
