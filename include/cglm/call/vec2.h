@@ -149,6 +149,60 @@ CGLM_EXPORT
 void
 glmc_vec2_lerp(vec2 from, vec2 to, float t, vec2 dest);
 
+/* ext */
+
+CGLM_EXPORT
+void
+glmc_vec2_fill(vec2 v, float val);
+
+CGLM_EXPORT
+bool
+glmc_vec2_eq(vec2 v, float val);
+
+CGLM_EXPORT
+bool
+glmc_vec2_eq_eps(vec2 v, float val);
+
+CGLM_EXPORT
+bool
+glmc_vec2_eq_all(vec2 v);
+
+CGLM_EXPORT
+bool
+glmc_vec2_eqv(vec2 a, vec2 b);
+
+CGLM_EXPORT
+bool
+glmc_vec2_eqv_eps(vec2 a, vec2 b);
+
+CGLM_EXPORT
+float
+glmc_vec2_max(vec2 v);
+
+CGLM_EXPORT
+float
+glmc_vec2_min(vec2 v);
+
+CGLM_EXPORT
+bool
+glmc_vec2_isnan(vec2 v);
+
+CGLM_EXPORT
+bool
+glmc_vec2_isinf(vec2 v);
+
+CGLM_EXPORT
+bool
+glmc_vec2_isvalid(vec2 v);
+
+CGLM_EXPORT
+void
+glmc_vec2_sign(vec2 v, vec2 dest);
+
+CGLM_EXPORT
+void
+glmc_vec2_sqrt(vec2 v, vec2 dest);
+
 #ifdef __cplusplus
 }
 #endif
