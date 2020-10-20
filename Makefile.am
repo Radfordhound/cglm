@@ -90,7 +90,8 @@ cglm_call_HEADERS = include/cglm/call/mat4.h \
                     include/cglm/call/curve.h \
                     include/cglm/call/bezier.h \
                     include/cglm/call/ray.h \
-                    include/cglm/call/affine2d.h
+                    include/cglm/call/affine2d.h \
+                    include/cglm/call/color.h
 
 cglm_simddir=$(includedir)/cglm/simd
 cglm_simd_HEADERS = include/cglm/simd/intrin.h \
@@ -156,7 +157,8 @@ libcglm_la_SOURCES=\
     src/curve.c \
     src/bezier.c \
     src/ray.c \
-    src/affine2d.c
+    src/affine2d.c \
+    src/color.c
 
 test_tests_SOURCES=\
     test/runner.c \

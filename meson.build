@@ -47,7 +47,8 @@ cglm_src = files(
     'src/sphere.c',
     'src/vec2.c',
     'src/vec3.c',
-    'src/vec4.c'
+    'src/vec4.c',
+    'src/color.c'
 )
 
 install_subdir('include/cglm', install_dir : get_option('includedir'))

@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\bezier.c" />
     <ClCompile Include="..\src\box.c" />
     <ClCompile Include="..\src\cam.c" />
+    <ClCompile Include="..\src\color.c" />
     <ClCompile Include="..\src\curve.c" />
     <ClCompile Include="..\src\ease.c" />
     <ClCompile Include="..\src\euler.c" />
@@ -54,6 +55,7 @@
     <ClInclude Include="..\include\cglm\call\bezier.h" />
     <ClInclude Include="..\include\cglm\call\box.h" />
     <ClInclude Include="..\include\cglm\call\cam.h" />
+    <ClInclude Include="..\include\cglm\call\color.h" />
     <ClInclude Include="..\include\cglm\call\curve.h" />
     <ClInclude Include="..\include\cglm\call\ease.h" />
     <ClInclude Include="..\include\cglm\call\euler.h" />

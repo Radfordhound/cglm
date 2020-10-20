@@ -73,6 +73,7 @@ add_library(${PROJECT_NAME}
   src/bezier.c
   src/ray.c
   src/affine2d.c
+  src/color.c
   )
 
 if(CGLM_SHARED)
