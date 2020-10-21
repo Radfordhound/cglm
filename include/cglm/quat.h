@@ -167,7 +167,8 @@ glm_quatv(versor q, float angle, vec3 axis) {
 CGLM_INLINE
 void
 glm_quat(versor q, float angle, float x, float y, float z) {
-  CGLM_ALIGN(8) vec3 axis = {x, y, z};
+  CGLM_ALIGN(8) vec3 axis;
+  axis[0] = x; axis[1] = y; axis[2] = z;
   glm_quatv(q, angle, axis);
 }
 

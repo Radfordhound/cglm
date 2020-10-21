@@ -230,7 +230,8 @@ glm_scale(mat4 m, vec3 v) {
 CGLM_INLINE
 void
 glm_scale_uni(mat4 m, float s) {
-  CGLM_ALIGN(8) vec3 v = { s, s, s };
+  CGLM_ALIGN(8) vec3 v;
+  v[0] = s; v[1] = s; v[2] = s;
   glm_scale_to(m, v, m);
 }
 
